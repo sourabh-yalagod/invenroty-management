@@ -8,7 +8,7 @@ import { config } from "dotenv";
 // Configurations
 const app = express();
 config({ path: "./.env" });
-const port = process.env.PORT || 3000;
+const port = Number(process.env.PORT) || 3000;
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,6 +31,6 @@ app.use("/product", productRoutes);
 app.use("/users", usersRoutes);
 app.use("/expenses", expensesRouter);
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`http://localhost:${port}`);
 });
