@@ -1,6 +1,14 @@
-import { ExpenseByCategory, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 const prisma = new PrismaClient();
+
+interface Item {
+  date: Date;
+  expenseSummaryId: string;
+  expenseByCategoryId: string;
+  category: string;
+  amount: bigint;
+}
 export const getDashboardMatrics = async (
   req: Request,
   res: Response
@@ -39,7 +47,7 @@ export const getDashboardMatrics = async (
       }
     );
     const expenseByCategorySummary = expenseByCategorySummaryRaw.map(
-      (item) => ({
+      (item: Item) => ({
         ...item,
         amount: item.amount.toString(),
       })
